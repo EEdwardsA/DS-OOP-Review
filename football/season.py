@@ -3,12 +3,13 @@
 from possible_values import *
 from game import Game
 from random import randint, uniform, sample
+from statistics import mode
 
 
 def generate_rand_games(n=15):
     '''Generate n random games using value lists in possible_values
     '''
-    # Begin with enpty list
+    # Begin with empty list
     games = []
 
     # For the specified number of games, create an instance of the Game
@@ -46,6 +47,7 @@ def season_report(games):
     '''
     # Instantiate empty set and lists
     teams = set()
+    location = []
     winning_teams = []
     losing_teams = []
     winning_team_total_points = 0
@@ -56,6 +58,9 @@ def season_report(games):
         # Ensure both teams are included in the set of teams
         teams.add(game.teams[0])
         teams.add(game.teams[1])
+
+        # Add game location to location list
+        location.append(game.location)
 
         # Record the winning and losing teams for each game
         winning_team, losing_team = game.get_winning_team()
@@ -97,6 +102,7 @@ def season_report(games):
     print('---------------------------------')
     print(f'Average Score of Winning Team: {winning_team_average: .1f}')
     print(f'Average Score of Losing Team: {losing_team_average:.1f}\n')
+    print(f'The most frequent location: {mode(location)}')
 
     # You could choose to return something here if you wanted TODO
 

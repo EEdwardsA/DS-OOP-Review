@@ -16,6 +16,12 @@ class Player:
         self.interceptions = interceptions
         self.field_goals = field_goals
 
+        self.stats = {'yards':yards,
+                      'td':touchdowns,
+                      'safety':safety,
+                      'interceptions':interceptions,
+                      'fg':field_goals}
+
     def get_points(self):
         '''Gets points scored by the player from stats
         '''
@@ -23,6 +29,17 @@ class Player:
         safety_points = 2 * self.stats['safety']
         total_points = td_points + safety_points
         return total_points
+
+
+class DefensivePlayer(Player):
+    """Overrides certain parameters of the default Player class and adds number
+    of sacks and tackles"""
+    def __init__(self, name=None, yards=100, touchdowns=1, tackles=3, sacks=10,
+                interceptions=6, safety=None, field_goals=None):
+        super().__init__(name=name, yards=yards, touchdowns=touchdowns,
+                            safety=safety, interceptions=interceptions)
+        self.tackles = tackles
+        self.sacks = sacks
 
 
 class Quarterback(Player):
@@ -40,6 +57,3 @@ class Quarterback(Player):
         '''
         score = self.completed_passes - (2 * self.interceptions)
         return score
-
-# TODO - refine the default player stats and/or make a defensive player default
-# with number of tackles, sacks, interceptions etc.
